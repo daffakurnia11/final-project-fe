@@ -4,11 +4,16 @@ import CurrentCard from "@/components/card/current-card";
 import PowerCard from "@/components/card/power-card";
 import VoltageCard from "@/components/card/voltage-card";
 import { Separator } from "@/components/ui/separator";
-import useWebsocket from "@/hooks/use-websocket";
+import useRealtime from "@/hooks/use-realtime";
+import { Sensor } from "@/types/sensor.type";
 
 export default function Home() {
-  const { isLoading, firstSensor, secondSensor, thirdSensor, recordTime } =
-    useWebsocket();
+  const { data, isLoading, recordTime } = useRealtime();
+
+  const filteredData = (name: string) =>
+    data.find((item: Sensor) => item.name === name);
+
+  console.log(filteredData("Sensor 3"));
 
   return (
     <>
@@ -21,20 +26,20 @@ export default function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           <VoltageCard
             isLoading={isLoading}
-            value={firstSensor?.voltage || 0}
-            sensor={firstSensor?.name || "Sensor 1"}
+            value={filteredData("Sensor 1")?.voltage || 0}
+            sensor={filteredData("Sensor 1")?.name || "Sensor 1"}
             recordedAt={recordTime}
           />
           <CurrentCard
             isLoading={isLoading}
-            value={firstSensor?.current || 0}
-            sensor={firstSensor?.name || "Sensor 1"}
+            value={filteredData("Sensor 1")?.current || 0}
+            sensor={filteredData("Sensor 1")?.name || "Sensor 1"}
             recordedAt={recordTime}
           />
           <PowerCard
             isLoading={isLoading}
-            value={firstSensor?.power || 0}
-            sensor={firstSensor?.name || "Sensor 1"}
+            value={filteredData("Sensor 1")?.power || 0}
+            sensor={filteredData("Sensor 1")?.name || "Sensor 1"}
             recordedAt={recordTime}
           />
         </div>
@@ -42,20 +47,20 @@ export default function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           <VoltageCard
             isLoading={isLoading}
-            value={secondSensor?.voltage || 0}
-            sensor={secondSensor?.name || "Sensor 2"}
+            value={filteredData("Sensor 2")?.voltage || 0}
+            sensor={filteredData("Sensor 2")?.name || "Sensor 2"}
             recordedAt={recordTime}
           />
           <CurrentCard
             isLoading={isLoading}
-            value={secondSensor?.current || 0}
-            sensor={secondSensor?.name || "Sensor 2"}
+            value={filteredData("Sensor 2")?.current || 0}
+            sensor={filteredData("Sensor 2")?.name || "Sensor 2"}
             recordedAt={recordTime}
           />
           <PowerCard
             isLoading={isLoading}
-            value={secondSensor?.power || 0}
-            sensor={secondSensor?.name || "Sensor 2"}
+            value={filteredData("Sensor 2")?.power || 0}
+            sensor={filteredData("Sensor 2")?.name || "Sensor 2"}
             recordedAt={recordTime}
           />
         </div>
@@ -63,20 +68,20 @@ export default function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           <VoltageCard
             isLoading={isLoading}
-            value={thirdSensor?.voltage || 0}
-            sensor={thirdSensor?.name || "Sensor 3"}
+            value={filteredData("Sensor 3")?.voltage || 0}
+            sensor={filteredData("Sensor 3")?.name || "Sensor 3"}
             recordedAt={recordTime}
           />
           <CurrentCard
             isLoading={isLoading}
-            value={thirdSensor?.current || 0}
-            sensor={thirdSensor?.name || "Sensor 3"}
+            value={filteredData("Sensor 3")?.current || 0}
+            sensor={filteredData("Sensor 3")?.name || "Sensor 3"}
             recordedAt={recordTime}
           />
           <PowerCard
             isLoading={isLoading}
-            value={thirdSensor?.power || 0}
-            sensor={thirdSensor?.name || "Sensor 3"}
+            value={filteredData("Sensor 3")?.power || 0}
+            sensor={filteredData("Sensor 3")?.name || "Sensor 3"}
             recordedAt={recordTime}
           />
         </div>

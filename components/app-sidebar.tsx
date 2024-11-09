@@ -1,4 +1,4 @@
-import { ChartArea, ClockArrowDown, Database } from "lucide-react";
+import { ChartArea, ClockArrowDown } from "lucide-react";
 
 import {
   Sidebar,
@@ -34,65 +34,32 @@ export function AppSidebar() {
                 </SidebarMenuButton>
               </SidebarMenuItem>
 
-              {/* Graph Data */}
+              {/* History Data */}
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <Link href="/graph">
+                  <span>
                     <ChartArea />
-                    <span>Graph Data</span>
-                  </Link>
+                    <span>History Data</span>
+                  </span>
                 </SidebarMenuButton>
                 <SidebarMenuSub>
                   <SidebarMenuSubItem>
                     <SidebarMenuButton asChild>
-                      <Link href="/graph/sensor/1">
+                      <Link href="/history/1">
                         <span>Sensor 1</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuSubItem>
                   <SidebarMenuSubItem>
                     <SidebarMenuButton asChild>
-                      <Link href="/graph/sensor/2">
+                      <Link href="/history/2">
                         <span>Sensor 2</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuSubItem>
                   <SidebarMenuSubItem>
                     <SidebarMenuButton asChild>
-                      <Link href="/graph/sensor/3">
-                        <span>Sensor 3</span>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuSubItem>
-                </SidebarMenuSub>
-              </SidebarMenuItem>
-
-              {/* Graph Data */}
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <Link href="/table">
-                    <Database />
-                    <span>Table Data</span>
-                  </Link>
-                </SidebarMenuButton>
-                <SidebarMenuSub>
-                  <SidebarMenuSubItem>
-                    <SidebarMenuButton asChild>
-                      <Link href="/table/sensor/1">
-                        <span>Sensor 1</span>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuSubItem>
-                  <SidebarMenuSubItem>
-                    <SidebarMenuButton asChild>
-                      <Link href="/table/sensor/2">
-                        <span>Sensor 2</span>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuSubItem>
-                  <SidebarMenuSubItem>
-                    <SidebarMenuButton asChild>
-                      <Link href="/table/sensor/3">
+                      <Link href="/history/3">
                         <span>Sensor 3</span>
                       </Link>
                     </SidebarMenuButton>
