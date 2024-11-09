@@ -19,10 +19,8 @@ export default function RootLayout({
       <body>
         <SidebarProvider>
           <AppSidebar />
-          <main>
-            <SidebarTrigger />
-            {children}
-          </main>
+          <SidebarTrigger className="absolute top-1 left-1" />
+          <main className="container w-full px-10 pt-10 pb-6">{children}</main>
         </SidebarProvider>
       </body>
     </html>
