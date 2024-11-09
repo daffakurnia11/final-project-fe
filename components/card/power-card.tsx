@@ -5,8 +5,16 @@ type Props = {
   sensor: string;
   value: number;
   recordedAt: string;
+  isLoading?: boolean;
 };
 
-export default function PowerCard(props: Props) {
-  return <RealTimeCard type="Power" unit="W" {...props} />;
+export default function PowerCard({ value, ...props }: Props) {
+  return (
+    <RealTimeCard
+      type="Power"
+      unit="W"
+      value={Number(value.toFixed(1))}
+      {...props}
+    />
+  );
 }

@@ -18,7 +18,7 @@ import Link from "next/link";
 export function AppSidebar() {
   return (
     <Sidebar>
-      <SidebarHeader className="mx-4 mt-4">Power Predictions</SidebarHeader>
+      <SidebarHeader className="mx-4 mt-4">IOT Power Predictions</SidebarHeader>
       <SidebarContent className="px-2">
         <SidebarGroup>
           <SidebarGroupLabel>Dashboard</SidebarGroupLabel>

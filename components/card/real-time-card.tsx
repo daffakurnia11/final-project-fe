@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
+import { Skeleton } from "../ui/skeleton";
 
 type Props = {
   type: "Voltage" | "Current" | "Power";
@@ -14,6 +15,7 @@ type Props = {
   value: number;
   unit: "V" | "A" | "W";
   recordedAt: string;
+  isLoading?: boolean;
 };
 
 export default function RealTimeCard({
@@ -22,6 +24,7 @@ export default function RealTimeCard({
   value,
   unit,
   recordedAt,
+  isLoading,
 }: Props) {
   return (
     <Card className="!w-full">
@@ -31,17 +34,27 @@ export default function RealTimeCard({
             {type}
           </h2>
         </CardTitle>
-        <CardDescription>{sensor}</CardDescription>
+        <CardDescription>
+          {!isLoading ? sensor : <Skeleton className="h-5 w-full" />}
+        </CardDescription>
       </CardHeader>
       <CardContent>
-        <p className="scroll-m-20 border-b pb-2 text-2xl font-semibold tracking-tight first:mt-0">
-          {value} {unit}
-        </p>
+        {isLoading ? (
+          <Skeleton className="h-8 w-full border-b pb-2 tracking-tight" />
+        ) : (
+          <p className="scroll-m-20 border-b pb-2 text-2xl font-semibold tracking-tight first:mt-0">
+            {value} {unit}
+          </p>
+        )}
       </CardContent>
       <CardFooter>
-        <p className="text-sm text-muted-foreground">
-          Recorded at : {recordedAt}
-        </p>
+        {isLoading ? (
+          <Skeleton className="h-5 w-full" />
+        ) : (
+          <p className="text-sm text-muted-foreground">
+            Recorded at : {recordedAt}
+          </p>
+        )}
       </CardFooter>
     </Card>
   );

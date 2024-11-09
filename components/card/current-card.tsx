@@ -5,8 +5,16 @@ type Props = {
   sensor: string;
   value: number;
   recordedAt: string;
+  isLoading?: boolean;
 };
 
-export default function CurrentCard(props: Props) {
-  return <RealTimeCard type="Current" unit="A" {...props} />;
+export default function CurrentCard({ value, ...props }: Props) {
+  return (
+    <RealTimeCard
+      type="Current"
+      unit="A"
+      value={Number(value.toFixed(3))}
+      {...props}
+    />
+  );
 }

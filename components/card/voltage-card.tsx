@@ -5,8 +5,16 @@ type Props = {
   sensor: string;
   value: number;
   recordedAt: string;
+  isLoading?: boolean;
 };
 
-export default function VoltageCard(props: Props) {
-  return <RealTimeCard type="Voltage" unit="V" {...props} />;
+export default function VoltageCard({ value, ...props }: Props) {
+  return (
+    <RealTimeCard
+      type="Voltage"
+      unit="V"
+      value={Number(value.toFixed(1))}
+      {...props}
+    />
+  );
 }
