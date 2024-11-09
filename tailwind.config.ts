@@ -68,7 +68,7 @@ export default {
   		}
   	},
   	container: {
-  		center: 'true'
+  		center: true
   	}
   },
   // eslint-disable-next-line @typescript-eslint/no-require-imports
