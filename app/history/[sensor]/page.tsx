@@ -40,11 +40,13 @@ export default function GraphSensorDetail() {
   const sensorName = useMemo(() => {
     switch (sensor) {
       case "1":
-        return "Sensor 1";
+        return ["Sensor AC", "Sensor 1"];
       case "2":
-        return "Sensor 2";
+        return ["Sensor Fan", "Sensor 2"];
       case "3":
-        return "Sensor 3";
+        return ["Sensor Charger & Monitor", "Sensor 3"];
+      default:
+        return ["", ""];
     }
   }, [sensor]);
 
@@ -58,14 +60,14 @@ export default function GraphSensorDetail() {
   } = useGraphData();
 
   const filteredData = useMemo(() => {
-    return realtimeData.find((item: Sensor) => item.name === sensorName);
+    return realtimeData.find((item: Sensor) => item.name === sensorName[1]);
   }, [sensorName, realtimeData]);
 
   return (
     <>
       <div className="container">
         <h1 className="scroll-m-20 text-2xl font-semibold tracking-tight lg:text-3xl mb-4">
-          {sensorName} Data
+          {sensorName[0]} Data
         </h1>
         <Separator className="my-4" />
 
@@ -110,21 +112,27 @@ export default function GraphSensorDetail() {
           <Chart
             isLoading={graphLoading}
             title="Voltage"
-            data={graphData.filter((data: Sensor) => data.name === sensorName)}
+            data={graphData.filter(
+              (data: Sensor) => data.name === sensorName[1]
+            )}
             dataKey="voltage"
             config={voltageConfig}
           />
           <Chart
             isLoading={graphLoading}
             title="Current"
-            data={graphData.filter((data: Sensor) => data.name === sensorName)}
+            data={graphData.filter(
+              (data: Sensor) => data.name === sensorName[1]
+            )}
             dataKey="current"
             config={currentConfig}
           />
           <Chart
             isLoading={graphLoading}
             title="Power"
-            data={graphData.filter((data: Sensor) => data.name === sensorName)}
+            data={graphData.filter(
+              (data: Sensor) => data.name === sensorName[1]
+            )}
             dataKey="power"
             config={powerConfig}
           />

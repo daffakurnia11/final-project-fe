@@ -46,21 +46,21 @@ export function AppSidebar() {
                   <SidebarMenuSubItem>
                     <SidebarMenuButton asChild>
                       <Link href="/history/1">
-                        <span>Sensor 1</span>
+                        <span>AC</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuSubItem>
                   <SidebarMenuSubItem>
                     <SidebarMenuButton asChild>
                       <Link href="/history/2">
-                        <span>Sensor 2</span>
+                        <span>Fan</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuSubItem>
                   <SidebarMenuSubItem>
                     <SidebarMenuButton asChild>
                       <Link href="/history/3">
-                        <span>Sensor 3</span>
+                        <span>Charger & Monitor</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuSubItem>

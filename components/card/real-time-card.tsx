@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
   Card,
   CardContent,
@@ -26,6 +26,17 @@ export default function RealTimeCard({
   recordedAt,
   isLoading,
 }: Props) {
+  const sensorName = useMemo(() => {
+    switch (sensor) {
+      case "Sensor 1":
+        return "Sensor AC";
+      case "Sensor 2":
+        return "Sensor Fan";
+      case "Sensor 3":
+        return "Sensor Charger & Monitor";
+    }
+  }, [sensor]);
+
   return (
     <Card className="!w-full">
       <CardHeader>
@@ -35,7 +46,7 @@ export default function RealTimeCard({
           </h2>
         </CardTitle>
         <CardDescription>
-          {!isLoading ? sensor : <Skeleton className="h-5 w-full" />}
+          {!isLoading ? sensorName : <Skeleton className="h-5 w-full" />}
         </CardDescription>
       </CardHeader>
       <CardContent>
