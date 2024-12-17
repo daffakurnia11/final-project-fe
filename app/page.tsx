@@ -13,8 +13,6 @@ export default function Home() {
   const filteredData = (name: string) =>
     data.find((item: Sensor) => item.name === name);
 
-  console.log(filteredData("Sensor 3"));
-
   return (
     <>
       <div className="container">

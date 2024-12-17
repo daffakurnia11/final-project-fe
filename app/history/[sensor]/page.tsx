@@ -6,7 +6,16 @@ import VoltageCard from "@/components/card/voltage-card";
 import Chart from "@/components/chart";
 import { ChartConfig } from "@/components/ui/chart";
 import { Separator } from "@/components/ui/separator";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import useGraphData from "@/hooks/use-graph-data";
 import useRealtime from "@/hooks/use-realtime";
 import { Sensor } from "@/types/sensor.type";
@@ -55,8 +64,8 @@ export default function GraphSensorDetail() {
   const {
     data: graphData,
     isLoading: graphLoading,
-    filter,
-    setFilter,
+    filterValue,
+    setFilterValue,
   } = useGraphData();
 
   const filteredData = useMemo(() => {
@@ -92,23 +101,44 @@ export default function GraphSensorDetail() {
           />
         </div>
         <Separator className="my-4" />
-        <div className="flex md:flex-row flex-col items-center gap-3 mb-4 ms-auto w-fit">
-          <p>Filter</p>
-          <div className="w-fit">
-            <ToggleGroup
-              type="single"
-              variant="outline"
-              defaultValue={filter.toString()}
-              onValueChange={(value) => setFilter(Number(value))}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <div className="flex flex-row-reverse my-4 items-center gap-2">
+              <Button variant="outline">Filter</Button>
+              <p className="text-sm text-gray-600">
+                Current filter: {filterValue}
+              </p>
+            </div>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-56" side="bottom" align="end">
+            <DropdownMenuLabel>Panel Position</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuRadioGroup
+              value={filterValue}
+              onValueChange={setFilterValue}
             >
-              <ToggleGroupItem value="60">1 Hour</ToggleGroupItem>
-              <ToggleGroupItem value="30">30 Minutes</ToggleGroupItem>
-              <ToggleGroupItem value="15">15 Minutes</ToggleGroupItem>
-              <ToggleGroupItem value="5">5 Minutes</ToggleGroupItem>
-            </ToggleGroup>
-          </div>
-        </div>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+              <DropdownMenuRadioItem value="24 hour">
+                24 Hours
+              </DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="12 hour">
+                12 Hours
+              </DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="360 minute">
+                6 Hours
+              </DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="60 minute">
+                1 Hour
+              </DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="30 minute">
+                30 Minutes
+              </DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="300 second">
+                5 Minutes
+              </DropdownMenuRadioItem>
+            </DropdownMenuRadioGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <div className="grid grid-cols-1 gap-4">
           <Chart
             isLoading={graphLoading}
             title="Voltage"

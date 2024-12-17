@@ -7,9 +7,11 @@ class SensorApi {
     return axios.get(`${this.baseUrl}/sensors`).then((res) => res.data);
   }
 
-  async getSensorDataByHour(minute: number) {
+  async getSensorDataByHour(filter: string[]) {
     return axios
-      .get(`${this.baseUrl}/sensors`, { params: { minutes: minute } })
+      .get(`${this.baseUrl}/sensors`, {
+        params: { value: Number(filter[0]), filter: filter[1] },
+      })
       .then((res) => res.data);
   }
 }

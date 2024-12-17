@@ -6,14 +6,13 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "../ui/chart";
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
-import { Sensor } from "@/types/sensor.type";
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import { Skeleton } from "../ui/skeleton";
 
 type Props = {
   title: string;
   dataKey: string;
-  data: Sensor[];
+  data: Record<string, string | number>[];
   config: ChartConfig;
   isLoading?: boolean;
 };
@@ -36,15 +35,16 @@ export default function Chart({
       </CardHeader>
       <CardContent>
         {isLoading ? (
-          <Skeleton className="h-44 w-full" />
+          <Skeleton className="h-80 w-full" />
         ) : (
-          <ChartContainer config={config}>
+          <ChartContainer config={config} className="h-80 w-full">
             <AreaChart
               accessibilityLayer
               data={data}
               margin={{
                 left: 12,
                 right: 12,
+                bottom: 40,
               }}
             >
               <CartesianGrid vertical={false} />
@@ -53,11 +53,21 @@ export default function Chart({
                 tickLine={false}
                 axisLine={false}
                 tickMargin={8}
-                tickFormatter={(value) => value.slice(0, 3)}
+                tickFormatter={(value) => {
+                  const date = new Date(value);
+                  const hours = date.getHours().toString().padStart(2, "0");
+                  const minutes = date.getMinutes().toString().padStart(2, "0");
+                  const seconds = date.getSeconds().toString().padStart(2, "0");
+                  return `${hours}:${minutes}:${seconds}`;
+                }}
+                angle={90}
+                textAnchor="start"
               />
+              <YAxis domain={[0, "auto"]} />
               <ChartTooltip
                 cursor={false}
                 content={<ChartTooltipContent indicator="line" />}
+                labelFormatter={(value) => new Date(value).toLocaleString()}
               />
               <Area
                 dataKey={dataKey}

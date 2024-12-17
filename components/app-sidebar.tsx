@@ -1,4 +1,9 @@
-import { ChartArea, ClockArrowDown } from "lucide-react";
+import {
+  AlarmClock,
+  CalendarClock,
+  ChartArea,
+  ClockArrowDown,
+} from "lucide-react";
 
 import {
   Sidebar,
@@ -65,6 +70,49 @@ export function AppSidebar() {
                     </SidebarMenuButton>
                   </SidebarMenuSubItem>
                 </SidebarMenuSub>
+              </SidebarMenuItem>
+
+              {/* Prediction Data */}
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <span>
+                    <AlarmClock />
+                    <span>Prediction Data</span>
+                  </span>
+                </SidebarMenuButton>
+                <SidebarMenuSub>
+                  <SidebarMenuSubItem>
+                    <SidebarMenuButton asChild>
+                      <Link href="/prediction/1">
+                        <span>AC</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuSubItem>
+                  <SidebarMenuSubItem>
+                    <SidebarMenuButton asChild>
+                      <Link href="/prediction/2">
+                        <span>Fan</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuSubItem>
+                  <SidebarMenuSubItem>
+                    <SidebarMenuButton asChild>
+                      <Link href="/prediction/3">
+                        <span>Charger & Monitor</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuSubItem>
+                </SidebarMenuSub>
+              </SidebarMenuItem>
+
+              {/* Manual Prediction */}
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <Link href="/prediction">
+                    <CalendarClock />
+                    <span>Manual Prediction</span>
+                  </Link>
+                </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>

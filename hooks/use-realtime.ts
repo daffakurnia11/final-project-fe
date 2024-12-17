@@ -17,7 +17,7 @@ const useRealtime = () => {
     const socket = io(`${process.env.NEXT_PUBLIC_WEBSOCKET_API}`);
 
     socket.on("connect", () => {
-      console.log("Connected to WebSocket server");
+      console.log("Connected to WebSocket server for realtime data");
     });
 
     socket.on("realtime-sensor-data", (data) => {
@@ -25,7 +25,7 @@ const useRealtime = () => {
     });
 
     socket.on("disconnect", () => {
-      console.log("Disconnected from WebSocket server");
+      console.log("Disconnected from WebSocket server for realtime data");
     });
 
     return () => {

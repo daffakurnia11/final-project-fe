@@ -7,9 +7,10 @@ export const useSensorLatest = () => {
   return response;
 };
 
-export const useSensorByHour = (minute: number) => {
-  const response = useSWR([`/api/v1/sensors`, { minutes: minute }], () =>
-    sensorApi.getSensorDataByHour(minute)
+export const useSensorByHour = (filter: string) => {
+  const splittedFilter = filter.split(" ");
+  const response = useSWR([`/api/v1/sensors`, { value: splittedFilter[0], filter: splittedFilter[1] }], () =>
+    sensorApi.getSensorDataByHour(splittedFilter)
   );
 
   return response;

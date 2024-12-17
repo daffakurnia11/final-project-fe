@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import io from "socket.io-client";
 
 const useGraphData = () => {
-  const [filter, setFilter] = useState<number>(5);
-  const { data: graphData, isLoading, mutate } = useSensorByHour(filter);
+  const [filterValue, setFilterValue] = useState<string>("300 second");
+  const { data: graphData, isLoading, mutate } = useSensorByHour(filterValue);
 
   useEffect(() => {
     const socket = io(`${process.env.NEXT_PUBLIC_WEBSOCKET_API}`);
@@ -29,8 +29,8 @@ const useGraphData = () => {
   }, []);
 
   return {
-    filter,
-    setFilter,
+    filterValue,
+    setFilterValue,
     data: graphData?.data || [],
     isLoading,
   };
