@@ -20,7 +20,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Calendar as CalendarIcon } from "lucide-react";
+import { Calendar as CalendarIcon, Check, Loader } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
@@ -34,6 +34,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import useCalculation from "@/hooks/use-calculation";
 import { energyApi } from "@/services/api/energy-api";
+import { Card } from "@/components/ui/card";
 
 const formSchema = z.object({
   date: z.date(),
@@ -100,6 +101,22 @@ export default function ManualCalculation() {
         </h1>
         <Separator className="my-4" />
         <div className="w-full max-w-[400px]">
+          <Card className="!w-full px-4 py-2 mb-3">
+            <p className="text-sm flex gap-2">
+              Calculation Status :{" "}
+              {isCalculating ? (
+                <span className="text-red-500 flex gap-1 items-center">
+                  <Loader size={20} />
+                  Calculating..
+                </span>
+              ) : (
+                <span className="text-green-500 flex gap-1 items-center">
+                  <Check size={20} />
+                  Ready
+                </span>
+              )}
+            </p>
+          </Card>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
               <FormField

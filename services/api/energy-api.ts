@@ -5,6 +5,13 @@ class EnergyApi {
   private baseUrl = process.env.NEXT_PUBLIC_BASEURL_API;
   public prefix = "/api/v1/energy";
 
+  async list() {
+    return axios
+      .get(`${this.baseUrl}${this.prefix}`)
+      .then((res) => res.data)
+      .catch((err) => err.response);
+  }
+
   async get(sensor: string) {
     return axios
       .get(`${this.baseUrl}${this.prefix}`, {

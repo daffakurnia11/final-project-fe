@@ -42,7 +42,7 @@ export default function PredictionList() {
         </h1>
         <Separator className="my-4" />
 
-        <Table className="mt-6">
+        <Table>
           <TableHeader>
             <TableRow>
               <TableHead className="w-[100px]">No.</TableHead>
