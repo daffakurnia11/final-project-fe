@@ -13,13 +13,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Link from "next/link";
-import { usePredictionSensor } from "@/services/swr/use-prediction";
 import { Prediction } from "@/types/prediction.type";
+import { useEnergy } from "@/services/swr/use-energy";
 
 export default function PredictionList() {
   const { sensor } = useParams();
 
-  const { data, isLoading } = usePredictionSensor(sensor as string);
+  const { data, isLoading } = useEnergy(sensor as string);
 
   const sensorName = useMemo(() => {
     switch (sensor) {
@@ -38,7 +38,7 @@ export default function PredictionList() {
     <>
       <div className="container">
         <h1 className="scroll-m-20 text-2xl font-semibold tracking-tight lg:text-3xl mb-4">
-          {sensorName} Prediction
+          {sensorName} Consumption
         </h1>
         <Separator className="my-4" />
 
@@ -47,7 +47,8 @@ export default function PredictionList() {
             <TableRow>
               <TableHead className="w-[100px]">No.</TableHead>
               <TableHead>Date</TableHead>
-              <TableHead>Energy Prediction</TableHead>
+              <TableHead>Predicted Energy</TableHead>
+              <TableHead>Calculated Energy</TableHead>
               <TableHead>Action</TableHead>
             </TableRow>
           </TableHeader>
@@ -59,22 +60,36 @@ export default function PredictionList() {
                     <TableCell className="h-10 animate-pulse rounded-md bg-muted p-0" />
                     <TableCell className="h-10 animate-pulse rounded-md bg-muted p-0" />
                     <TableCell className="h-10 animate-pulse rounded-md bg-muted p-0" />
+                    <TableCell className="h-10 animate-pulse rounded-md bg-muted p-0" />
                   </TableRow>
                 ))
               : data?.data.map((item: Prediction, index: number) => (
                   <TableRow key={index}>
                     <TableCell className="font-medium">{index + 1}</TableCell>
                     <TableCell>
-                      {new Date(item.prediction_date).toLocaleDateString(
-                        "en-CA"
+                      {new Date(item.date).toLocaleDateString("en-CA")}
+                    </TableCell>
+                    <TableCell>
+                      {item.predicted_energy ? (
+                        `${item.predicted_energy.toFixed(2)} kWh`
+                      ) : (
+                        <span className="text-gray-400 italic">
+                          Not predicted
+                        </span>
                       )}
                     </TableCell>
                     <TableCell>
-                      {item.prediction_power.toFixed(2)} kWh
+                      {item.calculated_energy ? (
+                        `${item.calculated_energy.toFixed(2)} kWh`
+                      ) : (
+                        <span className="text-gray-400 italic">
+                          Not calculated
+                        </span>
+                      )}
                     </TableCell>
                     <TableCell>
                       <Link
-                        href={`${sensor}/${item.id}`}
+                        href={`/consumption/detail/${item.id}?sensor=${sensor}&date=${item.date}`}
                         className="flex items-center gap-1.5"
                       >
                         <span className="underline">Detail</span>

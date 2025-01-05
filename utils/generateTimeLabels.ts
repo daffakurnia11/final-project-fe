@@ -17,7 +17,7 @@ export const generatePowerPredictionData = (data: number[]) => {
 
     // Format the time label as HH:MM:SS
     const timeLabel = `${String(
-      hours + 7 < 24 ? hours + 7 : hours + 7 - 24
+      hours
     ).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(
       seconds
     ).padStart(2, "0")}`;

@@ -24,6 +24,11 @@ export default function Chart({
   config,
   isLoading,
 }: Props) {
+  const isTimeFormat = (value: string) => {
+    const timeFormat = /^\d{2}:\d{2}:\d{2}$/;
+    return timeFormat.test(value);
+  };
+
   return (
     <Card className="mb-4">
       <CardHeader>
@@ -54,6 +59,10 @@ export default function Chart({
                 axisLine={false}
                 tickMargin={8}
                 tickFormatter={(value) => {
+                  if (isTimeFormat(value)) {
+                    return value;
+                  }
+
                   const date = new Date(value);
                   const hours = date.getHours().toString().padStart(2, "0");
                   const minutes = date.getMinutes().toString().padStart(2, "0");
@@ -67,7 +76,12 @@ export default function Chart({
               <ChartTooltip
                 cursor={false}
                 content={<ChartTooltipContent indicator="line" />}
-                labelFormatter={(value) => new Date(value).toLocaleString()}
+                labelFormatter={(value) => {
+                  if (isTimeFormat(value)) {
+                    return value;
+                  }
+                  return new Date(value).toLocaleString();
+                }}
               />
               <Area
                 dataKey={dataKey}

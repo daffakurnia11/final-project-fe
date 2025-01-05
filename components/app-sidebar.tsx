@@ -77,27 +77,27 @@ export function AppSidebar() {
                 <SidebarMenuButton asChild>
                   <span>
                     <AlarmClock />
-                    <span>Prediction Data</span>
+                    <span>Consumption Data</span>
                   </span>
                 </SidebarMenuButton>
                 <SidebarMenuSub>
                   <SidebarMenuSubItem>
                     <SidebarMenuButton asChild>
-                      <Link href="/prediction/1">
+                      <Link href="/consumption/1">
                         <span>AC</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuSubItem>
                   <SidebarMenuSubItem>
                     <SidebarMenuButton asChild>
-                      <Link href="/prediction/2">
+                      <Link href="/consumption/2">
                         <span>Fan</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuSubItem>
                   <SidebarMenuSubItem>
                     <SidebarMenuButton asChild>
-                      <Link href="/prediction/3">
+                      <Link href="/consumption/3">
                         <span>Charger & Monitor</span>
                       </Link>
                     </SidebarMenuButton>
@@ -108,11 +108,27 @@ export function AppSidebar() {
               {/* Manual Prediction */}
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <Link href="/prediction">
+                  <span>
                     <CalendarClock />
-                    <span>Manual Prediction</span>
-                  </Link>
+                    <span>Manual Trigger</span>
+                  </span>
                 </SidebarMenuButton>
+                <SidebarMenuSub>
+                  <SidebarMenuSubItem>
+                    <SidebarMenuButton asChild>
+                      <Link href="/energy/prediction">
+                        <span>Energy Prediction</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuSubItem>
+                  <SidebarMenuSubItem>
+                    <SidebarMenuButton asChild>
+                      <Link href="/energy/calculation">
+                        <span>Energy Calculation</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuSubItem>
+                </SidebarMenuSub>
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>

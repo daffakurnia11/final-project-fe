@@ -1,11 +1,12 @@
 export type Prediction = {
   id: string;
   name: string;
-  prediction_date: Date;
-  prediction_power: number;
+  date: Date;
+  predicted_energy?: number | null;
+  calculated_energy?: number | null;
 };
 
-export type PredictPayload = {
-  predicted_date: string;
+export type EnergyPayload = {
+  date: string;
   sensor: string;
 }

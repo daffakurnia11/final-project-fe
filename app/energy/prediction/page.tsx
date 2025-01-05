@@ -31,9 +31,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { predictionApi } from "@/services/api/prediction-api";
 import { useToast } from "@/hooks/use-toast";
 import usePrediction from "@/hooks/use-prediction";
+import { energyApi } from "@/services/api/energy-api";
 
 const formSchema = z.object({
   predicted_date: z.date(),
@@ -64,8 +64,8 @@ export default function ManualPrediction() {
       description: "Please wait for prediction result",
     });
     const formattedDate = formatDate(values.predicted_date);
-    predictionApi
-      .predictByDate({ predicted_date: formattedDate, sensor: values.sensor })
+    energyApi
+      .predict({ date: formattedDate, sensor: values.sensor })
       .then((res) => {
         if (!res.success) {
           toast({
@@ -79,7 +79,7 @@ export default function ManualPrediction() {
             description: "Prediction has been successfully made.",
           });
         }
-        setIsLoading(!res.success);
+        setIsLoading(false);
       });
   }
 

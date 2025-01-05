@@ -3,22 +3,22 @@ import { useEffect, useState } from "react";
 import io from "socket.io-client";
 import { useToast } from "./use-toast";
 
-const usePrediction = () => {
+const useCalculation = () => {
   const { toast } = useToast();
-  const [isPredicting, setIsPredicting] = useState(false);
+  const [isCalculating, setIsCalculating] = useState<boolean>(true);
 
   useEffect(() => {
-    statusApi.checkPredictionStatus().then((resp) => {
-      setIsPredicting(resp.data.is_prediction_running);
-      if (resp.data.is_prediction_running) {
+    statusApi.checkCalculationStatus().then((resp) => {
+      setIsCalculating(resp.data.is_calculation_running);
+      if (resp.data.is_calculation_running) {
         toast({
-          title: "Prediction is running",
-          description: "Please wait for prediction result",
+          title: "Calculation is running",
+          description: "Please wait for calculation result",
         });
       } else {
         toast({
-          title: "Prediction is ready",
-          description: "You can now make a prediction.",
+          title: "Calculation is ready",
+          description: "You can now make a calculation.",
         });
       }
     });
@@ -31,8 +31,8 @@ const usePrediction = () => {
       console.log("Connected to WebSocket server for prediction status");
     });
 
-    socket.on("prediction-status", (data) => {
-      setIsPredicting(data);
+    socket.on("calculation-status", (data) => {
+      setIsCalculating(data);
     });
 
     socket.on("disconnect", () => {
@@ -45,8 +45,8 @@ const usePrediction = () => {
   }, []);
 
   return {
-    isPredicting,
+    isCalculating,
   };
 };
 
-export default usePrediction;
+export default useCalculation;
