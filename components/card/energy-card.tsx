@@ -52,7 +52,7 @@ export default function EnergyCard({
           <Skeleton className="h-8 w-full border-b pb-2 tracking-tight" />
         ) : (
           <p className="scroll-m-20 border-b pb-2 text-2xl font-semibold tracking-tight first:mt-0">
-            {value ? `${value.toFixed(2)} kWh` : "-"}
+            {value != null ? `${Math.abs(value).toFixed(2)} kWh` : "-"}
           </p>
         )}
       </CardContent>

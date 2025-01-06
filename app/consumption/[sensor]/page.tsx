@@ -70,8 +70,8 @@ export default function PredictionList() {
                       {new Date(item.date).toLocaleDateString("en-CA")}
                     </TableCell>
                     <TableCell>
-                      {item.predicted_energy ? (
-                        `${item.predicted_energy.toFixed(2)} kWh`
+                      {item.predicted_energy != null ? (
+                        `${Math.abs(item.predicted_energy).toFixed(2)} kWh`
                       ) : (
                         <span className="text-gray-400 italic">
                           Not predicted
@@ -79,8 +79,8 @@ export default function PredictionList() {
                       )}
                     </TableCell>
                     <TableCell>
-                      {item.calculated_energy ? (
-                        `${item.calculated_energy.toFixed(2)} kWh`
+                      {item.calculated_energy != null ? (
+                        `${Math.abs(item.calculated_energy).toFixed(2)} kWh`
                       ) : (
                         <span className="text-gray-400 italic">
                           Not calculated
