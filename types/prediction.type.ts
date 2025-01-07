@@ -1,4 +1,4 @@
-export type Prediction = {
+export type EnergyType = {
   id: string;
   name: string;
   date: Date;

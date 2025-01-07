@@ -4,17 +4,64 @@ import { Eye } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { useParams } from "next/navigation";
 import { useMemo } from "react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import Link from "next/link";
-import { Prediction } from "@/types/prediction.type";
+import { EnergyType } from "@/types/prediction.type";
 import { useEnergy } from "@/services/swr/use-energy";
+import DataTable, { DataTableLoader } from "@/components/table";
+import { ColumnDef } from "@tanstack/react-table";
+
+export const columns: ColumnDef<EnergyType>[] = [
+  {
+    accessorKey: "index",
+    header: "No.",
+    cell: ({ row }) => row.index + 1,
+  },
+  {
+    accessorKey: "date",
+    header: "Date",
+  },
+  {
+    accessorKey: "predicted_energy",
+    header: "Predicted Energy",
+    cell: ({ row }) => {
+      const value = row.original.predicted_energy;
+      return value != null ? (
+        <div>{`${Math.abs(value).toFixed(2)} kWh`}</div>
+      ) : (
+        <div className="text-gray-400 italic">Not predicted</div>
+      );
+    },
+  },
+  {
+    accessorKey: "calculated_energy",
+    header: "Calculated Energy",
+    cell: ({ row }) => {
+      const value = row.original.calculated_energy;
+      return value != null ? (
+        <div>{`${Math.abs(value).toFixed(2)} kWh`}</div>
+      ) : (
+        <div className="text-gray-400 italic">Not calculated</div>
+      );
+    },
+  },
+  {
+    accessorKey: "action",
+    header: "Action",
+    cell: ({ row }) => {
+      return (
+        <Link
+          href={`/consumption/detail/${row.original.id}?sensor=${
+            row.original.name.split(" ")[1]
+          }&date=${row.original.date}`}
+          className="flex items-center gap-1.5"
+        >
+          <span className="underline">Detail</span>
+          <Eye size={20} />
+        </Link>
+      );
+    },
+  },
+];
 
 export default function PredictionList() {
   const { sensor } = useParams();
@@ -41,65 +88,11 @@ export default function PredictionList() {
           {sensorName} Consumption
         </h1>
         <Separator className="my-4" />
-
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[100px]">No.</TableHead>
-              <TableHead>Date</TableHead>
-              <TableHead>Predicted Energy</TableHead>
-              <TableHead>Calculated Energy</TableHead>
-              <TableHead>Action</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {isLoading
-              ? [...Array(5)].map((_, index) => (
-                  <TableRow key={index}>
-                    <TableCell className="h-10 w-[100px] animate-pulse rounded-md bg-muted p-0" />
-                    <TableCell className="h-10 animate-pulse rounded-md bg-muted p-0" />
-                    <TableCell className="h-10 animate-pulse rounded-md bg-muted p-0" />
-                    <TableCell className="h-10 animate-pulse rounded-md bg-muted p-0" />
-                    <TableCell className="h-10 animate-pulse rounded-md bg-muted p-0" />
-                  </TableRow>
-                ))
-              : data?.data.map((item: Prediction, index: number) => (
-                  <TableRow key={index}>
-                    <TableCell className="font-medium">{index + 1}</TableCell>
-                    <TableCell>
-                      {new Date(item.date).toLocaleDateString("en-CA")}
-                    </TableCell>
-                    <TableCell>
-                      {item.predicted_energy != null ? (
-                        `${Math.abs(item.predicted_energy).toFixed(2)} kWh`
-                      ) : (
-                        <span className="text-gray-400 italic">
-                          Not predicted
-                        </span>
-                      )}
-                    </TableCell>
-                    <TableCell>
-                      {item.calculated_energy != null ? (
-                        `${Math.abs(item.calculated_energy).toFixed(2)} kWh`
-                      ) : (
-                        <span className="text-gray-400 italic">
-                          Not calculated
-                        </span>
-                      )}
-                    </TableCell>
-                    <TableCell>
-                      <Link
-                        href={`/consumption/detail/${item.id}?sensor=${sensor}&date=${item.date}`}
-                        className="flex items-center gap-1.5"
-                      >
-                        <span className="underline">Detail</span>
-                        <Eye size={20} />
-                      </Link>
-                    </TableCell>
-                  </TableRow>
-                ))}
-          </TableBody>
-        </Table>
+        {isLoading ? (
+          <DataTableLoader columns={columns} />
+        ) : (
+          <DataTable columns={columns} data={data?.data} />
+        )}
       </div>
     </>
   );
