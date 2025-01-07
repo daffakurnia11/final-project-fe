@@ -10,7 +10,7 @@ import { useEnergy } from "@/services/swr/use-energy";
 import DataTable, { DataTableLoader } from "@/components/table";
 import { ColumnDef } from "@tanstack/react-table";
 
-export const columns: ColumnDef<EnergyType>[] = [
+const columns: ColumnDef<EnergyType>[] = [
   {
     accessorKey: "index",
     header: "No.",

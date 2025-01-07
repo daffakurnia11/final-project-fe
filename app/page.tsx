@@ -11,7 +11,7 @@ import Link from "next/link";
 import { Eye } from "lucide-react";
 import DataTable, { DataTableLoader } from "@/components/table";
 
-export const columns: ColumnDef<EnergyType>[] = [
+const columns: ColumnDef<EnergyType>[] = [
   {
     accessorKey: "index",
     header: "No.",
