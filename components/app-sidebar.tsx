@@ -1,5 +1,5 @@
 import {
-  CalendarClock,
+  // CalendarClock,
   ChartArea,
   ClockArrowDown,
   LayoutDashboard,
@@ -104,7 +104,7 @@ export function AppSidebar() {
               </SidebarMenuItem>
 
               {/* Manual Prediction */}
-              <SidebarMenuItem>
+              {/* <SidebarMenuItem>
                 <SidebarMenuButton asChild>
                   <span>
                     <CalendarClock />
@@ -127,7 +127,7 @@ export function AppSidebar() {
                     </SidebarMenuButton>
                   </SidebarMenuSubItem>
                 </SidebarMenuSub>
-              </SidebarMenuItem>
+              </SidebarMenuItem> */}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
